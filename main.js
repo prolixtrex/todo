@@ -58,6 +58,7 @@ const createTasks = () => {
     let badge = "";
     data.map((x, y) => {
         return (tasks.innerHTML += `
+        <div class="text-center" id="no-task">No Task</div>
         <div class="card tasks" id="${y}">
             <div class="card-header">
                 <div>
@@ -96,6 +97,7 @@ const createTasks = () => {
 
     sort.addEventListener("change", () => {
         let taskBadge = document.getElementsByClassName("badge");
+        const noTask = document.getElementById("no-task");
         switch (sort.value) {
             case "all":
                 for (let i = 0; i < taskBadge.length; i++) {
@@ -115,7 +117,11 @@ const createTasks = () => {
                 for (let i = 0; i < taskBadge.length; i++) {
                     taskBadge[i].parentElement.parentElement.parentElement.style.display = "none";
                     if (taskBadge[i].innerHTML == "today") {
-                        taskBadge[i].parentElement.parentElement.parentElement.style.display = "block";
+                        if (!taskBadge[i].length == 0) {
+                            taskBadge[i].parentElement.parentElement.parentElement.style.display = "block";
+                        } else {
+                            noTask.style.display = "block"
+                        }
                     }
                 }
                 break;

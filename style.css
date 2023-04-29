@@ -40,6 +40,10 @@ body {
     border: none;
 }
 
+.button:focus {
+    outline: none;
+}
+
 #addNew {
     display: flex;
     justify-content: space-between;
@@ -121,6 +125,10 @@ body {
 
 #task-head div {
     margin: auto 0;
+}
+
+#no-task {
+    display: none;
 }
 
 /* @-webkit-keyframes open {
