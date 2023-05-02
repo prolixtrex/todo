@@ -55,7 +55,6 @@ const acceptData = () => {
 const createTasks = () => {
     tasks.innerHTML = "";
     let taskCard = document.getElementsByClassName("tasks");
-    let badge = "";
     data.map((x, y) => {
         return (tasks.innerHTML += `
         <div class="text-center" id="no-task">No Task</div>
@@ -95,45 +94,38 @@ const createTasks = () => {
         }
     }
 
+    //sort by validity
     sort.addEventListener("change", () => {
-        let taskBadge = document.getElementsByClassName("badge");
+        const taskBadge = Object.values(document.getElementsByClassName("badge"));
         const noTask = document.getElementById("no-task");
+        const taskCardArr = Object.values(taskCard);
+
         switch (sort.value) {
             case "all":
-                for (let i = 0; i < taskBadge.length; i++) {
-                    taskBadge[i].parentElement.parentElement.parentElement.style.display = "block";
-                }
+                taskBadge.map(item => {
+                    item.parentElement.parentElement.parentElement.style.display = "block"
+                });
                 break;
+
             case "expired":
-                for (let i = 0; i < taskBadge.length; i++) {
-                    taskBadge[i].parentElement.parentElement.parentElement.style.display = "none";
-                    if (taskBadge[i].innerHTML == "expired") {
-                        taskBadge[i].parentElement.parentElement.parentElement.style.display = "block";
-                    }
-                }
+                taskCardArr.map(item => item.style.display = "none");
+                taskBadge.filter(item => item.innerHTML == "expired").map(item => {
+                    item.parentElement.parentElement.parentElement.style.display = "block"
+                });
                 break;
 
             case "today":
-                for (let i = 0; i < taskBadge.length; i++) {
-                    taskBadge[i].parentElement.parentElement.parentElement.style.display = "none";
-                    if (taskBadge[i].innerHTML == "today") {
-                        if (!taskBadge[i].length == 0) {
-                            taskBadge[i].parentElement.parentElement.parentElement.style.display = "block";
-                        } else {
-                            noTask.style.display = "block"
-                        }
-                    }
-                }
+                taskCardArr.map(item => item.style.display = "none");
+                taskBadge.filter(item => item.innerHTML == "today").map(item => {
+                    item.parentElement.parentElement.parentElement.style.display = "block"
+                });
                 break;
+
             case "upcoming":
-                for (let i = 0; i < taskBadge.length; i++) {
-                    taskBadge[i].parentElement.parentElement.parentElement.style.display = "none";
-                    if (taskBadge[i].innerHTML == "upcoming") {
-                        taskBadge[i].parentElement.parentElement.parentElement.style.display = "block";
-                    }
-                }
-                break;
-            default:
+                taskCardArr.map(item => item.style.display = "none");
+                taskBadge.filter(item => item.innerHTML == "upcoming").map(item => {
+                    item.parentElement.parentElement.parentElement.style.display = "block"
+                })
                 break;
         }
     });
